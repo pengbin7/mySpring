@@ -5,7 +5,7 @@
            http://www.springframework.org/schema/beans/spring-beans.xsd">
   
   <bean id="petStore"
-        class="org.litespring.service.v1.PetStoreService" >   
+        class="com.mySpring.service.v1.PetStoreService" >   
   </bean> 
  <bean id="invalidBean"
         class="xxx.xxxxx" >   

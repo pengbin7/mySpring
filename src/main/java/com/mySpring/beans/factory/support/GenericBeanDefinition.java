@@ -13,12 +13,24 @@ public class GenericBeanDefinition implements BeanDefinition {
 	}
 	
 	public GenericBeanDefinition(String id, String beanClassName) {
-		this.id = id;
+		this.setId(id);
+		this.setBeanClassName(beanClassName);
+	}
+
+	public String getBeanClassName() {
+		return this.beanClassName;
+	}
+
+	public void setBeanClassName(String beanClassName) {
 		this.beanClassName = beanClassName;
 	}
 
-	public Object getBeanClassName() {
-		return null;
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

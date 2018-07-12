@@ -7,6 +7,6 @@ public interface BeanFactory {
 
 	BeanDefinition getBeanDefinition(String string);
 
-	PetStoreService getBean(String string);
+	Object getBean(String string);
 
 }
