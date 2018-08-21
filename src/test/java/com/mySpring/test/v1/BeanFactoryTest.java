@@ -3,6 +3,7 @@ package com.mySpring.test.v1;
 import static org.junit.Assert.*;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.mySpring.beans.BeanDefinition;
@@ -10,10 +11,28 @@ import com.mySpring.beans.factory.BeanCreationException;
 import com.mySpring.beans.factory.BeanDefinitionStoreException;
 import com.mySpring.beans.factory.BeanFactory;
 import com.mySpring.beans.factory.support.DefaultBeanFactory;
+import com.mySpring.beans.factory.xml.XmlBeanDefinitionReader;
 import com.mySpring.service.v1.PetStoreService;
 
 public class BeanFactoryTest {
 
+	DefaultBeanFactory factory = null;
+	
+	XmlBeanDefinitionReader reader = null;
+	
+	/**
+	 * 重构测试用例，
+	 * 在每次运行测试用例时都运行配置代码
+	 * 重置factory/reader，每次都是全新的对象
+	 * 各个测试用例之间互不影响
+	 * 
+	 */
+	@Before
+	public void setUp(){
+		factory = new DefaultBeanFactory();
+		reader = new XmlBeanDefinitionReader(factory);
+	}
+	
 	/**
 	 * TDD
 	 * 
@@ -25,11 +44,20 @@ public class BeanFactoryTest {
 	 */
 	@Test
 	public void testGetBean() {
-		BeanFactory factory = new DefaultBeanFactory("petstore-v1.xml");
+		reader.loadBeanDefinition("petstore-v1.xml");
+		//BeanFactory factory = new DefaultBeanFactory("petstore-v1.xml");
 		BeanDefinition bd = factory.getBeanDefinition("petStore");
+		
+		assertTrue(bd.isSingleton());
+		assertFalse(bd.isPrototype());
+		assertEquals(BeanDefinition.SCOPE_DEFAULT,bd.getScope());
+		
 		assertEquals("com.mySpring.service.v1.PetStoreService", bd.getBeanClassName());
 		PetStoreService petStore = (PetStoreService)factory.getBean("petStore");
 		assertNotNull(petStore);
+		
+		PetStoreService petStore1 = (PetStoreService)factory.getBean("petStore");
+		assertTrue(petStore.equals(petStore1));
 	}
 
 	/**
@@ -37,7 +65,8 @@ public class BeanFactoryTest {
 	 */
 	@Test
 	public void testInvalidBean(){
-		BeanFactory factory = new DefaultBeanFactory("petstore-v1.xml");
+		reader.loadBeanDefinition("petstore-v1.xml");
+		//BeanFactory factory = new DefaultBeanFactory("petstore-v1.xml");
 		try {
 			factory.getBean("invalidBean");
 		} catch (BeanCreationException e) {
@@ -52,7 +81,8 @@ public class BeanFactoryTest {
 	@Test
 	public void testInvalidXml(){
 		try {
-		  new DefaultBeanFactory("xxx.xml");
+			reader.loadBeanDefinition("xxx.xml");
+		  //new DefaultBeanFactory("xxx.xml");
 		} catch (BeanDefinitionStoreException e) {
 			return;
 		}
