@@ -1,6 +1,10 @@
 package com.mySpring.beans.factory.support;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mySpring.beans.BeanDefinition;
+import com.mySpring.beans.PropertyValue;
 
 public class GenericBeanDefinition implements BeanDefinition {
 
@@ -13,6 +17,8 @@ public class GenericBeanDefinition implements BeanDefinition {
 	private boolean prototype = false;
 	
 	private String scope = SCOPE_DEFAULT;
+	
+	List<PropertyValue> propertyValues = new ArrayList<PropertyValue>();
 	
 	public GenericBeanDefinition(){
 		
@@ -57,4 +63,7 @@ public class GenericBeanDefinition implements BeanDefinition {
 		this.prototype = SCOPE_PROTOTYPE.equals(scope);
 	}
 
+	public List<PropertyValue>  getPropertyValues(){
+		return this.propertyValues;
+	}
 }

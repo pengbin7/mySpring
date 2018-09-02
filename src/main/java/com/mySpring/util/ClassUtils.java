@@ -1,4 +1,4 @@
-package org.litespring.util;
+package com.mySpring.util;
 
 
 

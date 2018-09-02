@@ -1,6 +1,6 @@
 package com.mySpring.context.support;
 
-import org.litespring.util.ClassUtils;
+import com.mySpring.util.ClassUtils;
 
 import com.mySpring.beans.factory.support.DefaultBeanFactory;
 import com.mySpring.beans.factory.xml.XmlBeanDefinitionReader;
