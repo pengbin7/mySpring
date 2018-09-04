@@ -6,8 +6,10 @@
   
   <bean id="petStore"
         class="com.mySpring.service.v2.PetStoreService" > 
-    <property name = "acountDao" ref = "acountDao" />
-    <property name="itemDao" ref = "itemDao" />  
+        <property name = "acountDao" ref = "acountDao" />
+        <property name="itemDao" ref = "itemDao" />
+        <property name="owner" value="peng"/>
+        <property name="version" value="1"/>
   </bean>
   
   <bean id="acountDao" class="com.mySpring.dao.v2.AcountDao">

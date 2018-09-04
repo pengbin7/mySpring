@@ -21,6 +21,10 @@ public class ApplicationContextTestV2 {
 		assertNotNull(petStore.getItemDao());
 
 		assertTrue(petStore.getAcountDao() instanceof AcountDao);
+
+		assertEquals("peng",petStore.getOwner());
+
+		assertEquals(1,petStore.getVersion());
 	}
 	
 
